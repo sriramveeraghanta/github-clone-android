@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GithubClone</string>
+
+    <string name="mainActivity_userNameLabel">Enter Your Github UserName:</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="tab_text_1">Repositories</string>
+    <string name="tab_text_2">Organisation</string>
+    <string name="tab_text_3">Started</string>
+    <string name="tab_text_4">Profile</string>
+
+</resources>
