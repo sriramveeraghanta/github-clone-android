@@ -3,8 +3,7 @@ package com.example.githubclone.service;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.githubclone.contants.AppConstant;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,11 +11,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class ProfileService extends AsyncTask<String, Void, JSONObject> {
+public class GistsFetchService extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPreExecute() {
@@ -24,18 +25,17 @@ public class ProfileService extends AsyncTask<String, Void, JSONObject> {
     }
 
     @Override
-    protected JSONObject doInBackground(String... strings) {
-        Log.i("method", strings[0]);
-        Log.i("URL", strings[1]);
+    protected String doInBackground(String... strings) {
 
         HttpsURLConnection urlConnection = null;
         BufferedReader bufferedReader = null;
         String responseString = null;
 
         try {
-            URL url = new URL(strings[1]);
-            urlConnection = (HttpsURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(strings[0]);
+            Log.v("URL", AppConstant.USER_GISTS(strings[0]));
+            URL urlObject = new URL(AppConstant.USER_GISTS(strings[0]));
+            urlConnection = (HttpsURLConnection) urlObject.openConnection();
+            urlConnection.setRequestMethod("GET");
             urlConnection.connect();
             int lengthOfFile = urlConnection.getContentLength();
             InputStream inputStream = urlConnection.getInputStream();
@@ -56,16 +56,11 @@ public class ProfileService extends AsyncTask<String, Void, JSONObject> {
             }
 
             responseString = buffer.toString();
-            JSONObject jsonObject = new JSONObject(responseString);
-
-            return jsonObject;
-
+            return responseString;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -73,7 +68,7 @@ public class ProfileService extends AsyncTask<String, Void, JSONObject> {
     }
 
     @Override
-    protected void onPostExecute(JSONObject s) {
+    protected void onPostExecute(String s) {
         super.onPostExecute(s);
     }
 }

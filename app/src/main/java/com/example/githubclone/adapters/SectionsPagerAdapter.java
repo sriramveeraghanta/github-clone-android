@@ -1,4 +1,4 @@
-package com.example.githubclone.ui.main;
+package com.example.githubclone.adapters;
 
 import android.content.Context;
 

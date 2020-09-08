@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("username", usernameEditText.getText().toString());
                 startActivity(intent);
+                finish();
             }
         });
 

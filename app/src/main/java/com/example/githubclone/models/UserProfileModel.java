@@ -1,53 +1,35 @@
 package com.example.githubclone.models;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class UserProfileModel {
-    private String fullName;
-    private String username;
+    private String name;
+    private String login;
     private String bio;
     private String location;
     private String email;
-    private String avatarURL;
-    private String reposURL;
-    private String organizationsURL;
-    private String starredURL;
-    private String followersURL;
-    private String followingURL;
-    private String gistsURL;
+    private String blog;
+    private String avatar_url;
+    private String repos_url;
+    private String organizations_url;
+    private String starred_url;
+    private String followers_url;
+    private String following_url;
+    private String gists_url;
     private Boolean hireable;
 
-    public UserProfileModel(JSONObject res) throws JSONException {
-        this.setFullName(res.getString("name"));
-        this.setUsername(res.getString("login"));
-        this.setBio(res.getString("bio"));
-        this.setLocation(res.getString("location"));
-        this.setEmail(res.getString("email"));
-        this.setAvatarURL(res.getString("avatar_url"));
-        this.setReposURL(res.getString("repos_url"));
-        this.setOrganizationsURL(res.getString("organizations_url"));
-        this.setStarredURL(res.getString("starred_url"));
-        this.setFollowersURL(res.getString("followers_url"));
-        this.setFollowingURL(res.getString("following_url"));
-        this.setGistsURL(res.getString("gists_url"));
+    public String getName() {
+        return name;
     }
 
-
-    public String getFullName() {
-        return fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public String getLogin() {
+        return login;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getBio() {
@@ -74,59 +56,75 @@ public class UserProfileModel {
         this.email = email;
     }
 
-    public String getAvatarURL() {
-        return avatarURL;
+    public String getAvatar_url() {
+        return avatar_url;
     }
 
-    public void setAvatarURL(String avatarURL) {
-        this.avatarURL = avatarURL;
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
 
-    public String getReposURL() {
-        return reposURL;
+    public String getRepos_url() {
+        return repos_url;
     }
 
-    public void setReposURL(String reposURL) {
-        this.reposURL = reposURL;
+    public void setRepos_url(String repos_url) {
+        this.repos_url = repos_url;
     }
 
-    public String getOrganizationsURL() {
-        return organizationsURL;
+    public String getOrganizations_url() {
+        return organizations_url;
     }
 
-    public void setOrganizationsURL(String organizationsURL) {
-        this.organizationsURL = organizationsURL;
+    public void setOrganizations_url(String organizations_url) {
+        this.organizations_url = organizations_url;
     }
 
-    public String getStarredURL() {
-        return starredURL;
+    public String getStarred_url() {
+        return starred_url;
     }
 
-    public void setStarredURL(String starredURL) {
-        this.starredURL = starredURL;
+    public void setStarred_url(String starred_url) {
+        this.starred_url = starred_url;
     }
 
-    public String getFollowersURL() {
-        return followersURL;
+    public String getFollowers_url() {
+        return followers_url;
     }
 
-    public void setFollowersURL(String followersURL) {
-        this.followersURL = followersURL;
+    public void setFollowers_url(String followers_url) {
+        this.followers_url = followers_url;
     }
 
-    public String getFollowingURL() {
-        return followingURL;
+    public String getFollowing_url() {
+        return following_url;
     }
 
-    public void setFollowingURL(String followingURL) {
-        this.followingURL = followingURL;
+    public void setFollowing_url(String following_url) {
+        this.following_url = following_url;
     }
 
-    public String getGistsURL() {
-        return gistsURL;
+    public String getGists_url() {
+        return gists_url;
     }
 
-    public void setGistsURL(String gistsURL) {
-        this.gistsURL = gistsURL;
+    public void setGists_url(String gists_url) {
+        this.gists_url = gists_url;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
+    }
+
+    public Boolean getHireable() {
+        return hireable;
+    }
+
+    public void setHireable(Boolean hireable) {
+        this.hireable = hireable;
     }
 }
