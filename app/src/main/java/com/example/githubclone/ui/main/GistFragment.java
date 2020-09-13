@@ -3,10 +3,10 @@ package com.example.githubclone.ui.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,20 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.githubclone.R;
 import com.example.githubclone.adapters.GistAdapter;
 import com.example.githubclone.contants.AppConstant;
-import com.example.githubclone.models.GistsList;
-import com.example.githubclone.models.UserGistModel;
-import com.example.githubclone.models.UserProfileModel;
-import com.example.githubclone.service.GistsFetchService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.githubclone.models.Gist;
+import com.example.githubclone.models.Profile;
+import com.example.githubclone.models.Repository;
+import com.example.githubclone.service.GithubService;
+import com.example.githubclone.service.RetrofitClientInstance;
 
-import java.lang.reflect.Type;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GistFragment extends Fragment {
 
-    private List<UserGistModel> gistsList;
     private RecyclerView gistRecyclerView;
 
     @Override
@@ -46,40 +46,33 @@ public class GistFragment extends Fragment {
         // Lookup the recyclerview in activity layout
         gistRecyclerView = root.findViewById(R.id.gists_recyclerView);
 
-        // Initializing gson;
-        Gson gson = new Gson();
-
-        // type
-        Type type = new TypeToken<List<UserGistModel>>(){}.getType();
-
-
         // fetching user profile saved in the user shared pref....
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String json = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
-        // converting to user model
-        UserProfileModel userProfile = gson.fromJson(json, UserProfileModel.class);
+        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
 
-        Log.v("USERNAME", ""+userProfile.getLogin());
-        try {
-            // fetching user Gists List from Api.
-            String response = new GistsFetchService().execute(userProfile.getLogin()).get();
-            Log.v("RESPONSE", response);
-            // Converting user info
-            gistsList =  gson.fromJson(response, type);
-            Log.v("SIZE", ""+gistsList.size());
+        // service
+        GithubService githubService = RetrofitClientInstance.getRetrofitInstance().create(GithubService.class);
+        Call<List<Gist>> call = githubService.listGists(username);
 
-            // creating adapter
-            GistAdapter adapter = new GistAdapter(gistsList);
-            // setting to fragment user adapter
-            gistRecyclerView.setAdapter(adapter);
-            gistRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        call.enqueue(new Callback<List<Gist>>() {
+            @Override
+            public void onResponse(Call<List<Gist>> call, Response<List<Gist>> response) {
+                generateDataList(response.body());
+            }
 
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+            @Override
+            public void onFailure(Call<List<Gist>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
         return root;
+    }
+
+    private void generateDataList(List<Gist> body) {
+        // creating adapter
+        GistAdapter adapter = new GistAdapter(body);
+        // setting to fragment user adapter
+        gistRecyclerView.setAdapter(adapter);
+        gistRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

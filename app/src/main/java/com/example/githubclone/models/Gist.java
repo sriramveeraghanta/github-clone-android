@@ -2,7 +2,7 @@ package com.example.githubclone.models;
 
 import org.json.JSONObject;
 
-public class UserGistModel {
+public class Gist {
 
     private String id;
     private String url;

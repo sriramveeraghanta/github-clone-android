@@ -3,22 +3,33 @@ package com.example.githubclone.ui.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.githubclone.R;
 import com.example.githubclone.contants.AppConstant;
-import com.example.githubclone.models.UserProfileModel;
+import com.example.githubclone.models.Gist;
+import com.example.githubclone.models.Profile;
+import com.example.githubclone.service.GithubService;
+import com.example.githubclone.service.RetrofitClientInstance;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
@@ -65,11 +76,33 @@ public class ProfileFragment extends Fragment {
         emailIconView = root.findViewById(R.id.profile_email_icon);
         hireableIconView = root.findViewById(R.id.profile_hireable_icon);
 
+        // shared pref
         SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
-        UserProfileModel userProfile = gson.fromJson(json, UserProfileModel.class);
+        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
 
+        Log.v("USERNAME", username);
+
+        // service
+        GithubService githubService = RetrofitClientInstance.getRetrofitInstance().create(GithubService.class);
+       Call<Profile> call = githubService.getUserProfile(username);
+
+       call.enqueue(new Callback<Profile>() {
+           @Override
+           public void onResponse(Call<Profile> call, Response<Profile> response) {
+               Log.v("RESPONSE", response.body().toString());
+               updateProfileFragment(response.body());
+           }
+
+           @Override
+           public void onFailure(Call<Profile> call, Throwable t) {
+               Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+           }
+       });
+
+        return root;
+    }
+
+    private void updateProfileFragment(Profile userProfile) {
         if(userProfile.getName() != null || userProfile.getLogin() != null){
             fullNameTextView.setText(userProfile.getName());
             usernameTextView.setText(userProfile.getLogin());
@@ -108,7 +141,5 @@ public class ProfileFragment extends Fragment {
 
         Picasso.get().load(userProfile.getAvatar_url())
                 .into(profileImageView);
-
-        return root;
     }
 }

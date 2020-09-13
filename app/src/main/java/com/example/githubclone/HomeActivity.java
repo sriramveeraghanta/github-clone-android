@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.githubclone.contants.AppConstant;
-import com.example.githubclone.service.GistsFetchService;
-import com.example.githubclone.service.ProfileFetchService;
 import com.example.githubclone.ui.main.GistFragment;
 import com.example.githubclone.ui.main.ProfileFragment;
 import com.example.githubclone.ui.main.RepositoryFragment;
@@ -26,24 +24,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        Intent intent = getIntent();
-        String searchedUsername = intent.getStringExtra("username");
-
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        try {
-            String response = new ProfileFetchService().execute(searchedUsername).get();
-
-            // saving to the shared pref
-            editor.putString(AppConstant.USER_PREF_DATA, response);
-            editor.apply();
-
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         // tab adapter
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

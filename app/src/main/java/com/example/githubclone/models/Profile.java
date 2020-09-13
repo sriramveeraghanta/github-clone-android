@@ -1,6 +1,6 @@
 package com.example.githubclone.models;
 
-public class UserProfileModel {
+public class Profile {
     private String name;
     private String login;
     private String bio;
