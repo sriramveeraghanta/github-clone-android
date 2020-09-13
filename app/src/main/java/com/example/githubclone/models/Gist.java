@@ -7,7 +7,7 @@ public class Gist {
     private String id;
     private String url;
     private String description;
-    private String comments;
+    private Integer comments;
     private JSONObject files;
     private String created_at;
 
@@ -35,11 +35,11 @@ public class Gist {
         this.description = description;
     }
 
-    public String getComments() {
+    public Integer getComments() {
         return comments;
     }
 
-    public void setComments(String comments) {
+    public void setComments(Integer comments) {
         this.comments = comments;
     }
 

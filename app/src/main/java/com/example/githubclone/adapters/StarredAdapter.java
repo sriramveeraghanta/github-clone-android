@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.githubclone.R;
 import com.example.githubclone.models.Repository;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class StarredAdapter extends RecyclerView.Adapter<StarredAdapter.ViewHolder> {
@@ -46,14 +48,26 @@ public class StarredAdapter extends RecyclerView.Adapter<StarredAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         public Repository repository;
         public TextView starredRepoNameTextView;
+        public TextView starredRepoDescriptionTextView;
+        public TextView starredRepoStarTextView;
+        public TextView starredRepoForkTextView;
+        public TextView starredRepoWatcherTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             starredRepoNameTextView = itemView.findViewById(R.id.starredRepo_name_textView);
+            starredRepoDescriptionTextView = itemView.findViewById(R.id.starredRepo_description_textView);
+            starredRepoForkTextView = itemView.findViewById(R.id.starredRepo_forks_textView);
+            starredRepoStarTextView = itemView.findViewById(R.id.starredRepo_stars_textView);
+            starredRepoWatcherTextView = itemView.findViewById(R.id.starredRepo_watchers_textView);
         }
         public void bind(Repository repo){
             this.repository = repo;
             starredRepoNameTextView.setText(repo.getName());
+            starredRepoDescriptionTextView.setText(repo.getDescription());
+            starredRepoStarTextView.setText(repo.getStargazers_count().toString());
+            starredRepoForkTextView.setText(repo.getForks_count().toString());
+            starredRepoWatcherTextView.setText(repo.getWatchers().toString());
         }
     }
 

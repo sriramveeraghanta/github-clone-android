@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.example.githubclone.contants.AppConstant;
 import com.example.githubclone.models.Repository;
 import com.example.githubclone.service.GithubService;
 import com.example.githubclone.service.RetrofitClientInstance;
+import com.example.githubclone.utils.AppDefaultPreference;
 
 import java.util.List;
 
@@ -33,9 +35,6 @@ import retrofit2.Response;
 public class RepositoryFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private RepoAdapter repoAdapter;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +49,9 @@ public class RepositoryFragment extends Fragment {
 
         recyclerView  = root.findViewById(R.id.repos_recyclerView);
 
-        // fetching user profile saved in the user shared pref....
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
+        // shared pref
+        String username = AppDefaultPreference.getDefaults(AppConstant.USER_PREF_DATA, getActivity());
+//        Log.v("USERNAME", username);
 
         // service
         GithubService githubService = RetrofitClientInstance.getRetrofitInstance().create(GithubService.class);
@@ -76,9 +75,8 @@ public class RepositoryFragment extends Fragment {
     }
 
     private void generateDataList(List<Repository> repos) {
-        repoAdapter = new RepoAdapter(repos);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        RepoAdapter repoAdapter = new RepoAdapter(repos);
         recyclerView.setAdapter(repoAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

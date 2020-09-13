@@ -21,6 +21,7 @@ import com.example.githubclone.models.Profile;
 import com.example.githubclone.models.Repository;
 import com.example.githubclone.service.GithubService;
 import com.example.githubclone.service.RetrofitClientInstance;
+import com.example.githubclone.utils.AppDefaultPreference;
 
 import java.util.List;
 
@@ -46,9 +47,8 @@ public class GistFragment extends Fragment {
         // Lookup the recyclerview in activity layout
         gistRecyclerView = root.findViewById(R.id.gists_recyclerView);
 
-        // fetching user profile saved in the user shared pref....
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
+        // shared pref
+        String username = AppDefaultPreference.getDefaults(AppConstant.USER_PREF_DATA, getActivity());
 
         // service
         GithubService githubService = RetrofitClientInstance.getRetrofitInstance().create(GithubService.class);

@@ -53,19 +53,19 @@ public class GistAdapter extends RecyclerView.Adapter<GistAdapter.ViewHolder> {
 
         public Gist userGist;
 
-        public TextView gistIdTextView;
+        public TextView gistCommentCountTextView;
         public TextView descriptionTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            gistIdTextView = itemView.findViewById(R.id.gist_id_textView);
             descriptionTextView = itemView.findViewById(R.id.gist_description_textView);
+            gistCommentCountTextView = itemView.findViewById(R.id.gist_comments_textView);
         }
 
         public void bind(Gist userGist){
             this.userGist = userGist;
-            gistIdTextView.setText(userGist.getId());
-            descriptionTextView.setText(userGist.getDescription());
+            gistCommentCountTextView.setText(userGist.getComments().toString());
+            descriptionTextView.setText(userGist.getDescription() + " - "+userGist.getId());
         }
     }
 }

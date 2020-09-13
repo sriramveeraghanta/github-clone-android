@@ -14,12 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.githubclone.MainActivity;
 import com.example.githubclone.R;
 import com.example.githubclone.contants.AppConstant;
 import com.example.githubclone.models.Gist;
 import com.example.githubclone.models.Profile;
 import com.example.githubclone.service.GithubService;
 import com.example.githubclone.service.RetrofitClientInstance;
+import com.example.githubclone.utils.AppDefaultPreference;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -77,69 +79,67 @@ public class ProfileFragment extends Fragment {
         hireableIconView = root.findViewById(R.id.profile_hireable_icon);
 
         // shared pref
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
-
-        Log.v("USERNAME", username);
+        String username = AppDefaultPreference.getDefaults(AppConstant.USER_PREF_DATA, getActivity());
 
         // service
         GithubService githubService = RetrofitClientInstance.getRetrofitInstance().create(GithubService.class);
-       Call<Profile> call = githubService.getUserProfile(username);
+        Call<Profile> call = githubService.getUserProfile(username);
 
-       call.enqueue(new Callback<Profile>() {
-           @Override
-           public void onResponse(Call<Profile> call, Response<Profile> response) {
-               Log.v("RESPONSE", response.body().toString());
-               updateProfileFragment(response.body());
-           }
+        call.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                updateProfileFragment(response.body());
+            }
 
-           @Override
-           public void onFailure(Call<Profile> call, Throwable t) {
-               Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-           }
-       });
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return root;
     }
 
     private void updateProfileFragment(Profile userProfile) {
-        if(userProfile.getName() != null || userProfile.getLogin() != null){
-            fullNameTextView.setText(userProfile.getName());
-            usernameTextView.setText(userProfile.getLogin());
+        if(userProfile != null){
+            if (userProfile.getName() != null || userProfile.getLogin() != null) {
+                fullNameTextView.setText(userProfile.getName());
+                usernameTextView.setText(userProfile.getLogin());
+            }
+            if (userProfile.getBio() != null) {
+                bioTextView.setText(userProfile.getBio());
+            }
+
+            if (userProfile.getLocation() != null) {
+                locationTextView.setText(userProfile.getLocation());
+                locationTextView.setVisibility(View.VISIBLE);
+                locationIconView.setVisibility(View.VISIBLE);
+            }
+
+            if (userProfile.getBlog() != null) {
+                websiteTextView.setText(userProfile.getBlog());
+                websiteTextView.setVisibility(View.VISIBLE);
+                websiteIconView.setVisibility(View.VISIBLE);
+            }
+
+            if (userProfile.getEmail() != null) {
+                emailTextView.setText(userProfile.getEmail());
+                emailTextView.setVisibility(View.VISIBLE);
+                emailIconView.setVisibility(View.VISIBLE);
+            }
+
+            if (userProfile.getHireable()) {
+                hireableTextView.setText("Hired Me.");
+
+            } else {
+                hireableTextView.setText("Working.");
+            }
+            hireableIconView.setVisibility(View.VISIBLE);
+            hireableTextView.setVisibility(View.VISIBLE);
+
+
+            Picasso.get().load(userProfile.getAvatar_url())
+                    .into(profileImageView);
         }
-        if(userProfile.getBio() != null){
-            bioTextView.setText(userProfile.getBio());
-        }
-
-        if(userProfile.getLocation()  !=null){
-            locationTextView.setText(userProfile.getLocation());
-            locationTextView.setVisibility(View.VISIBLE);
-            locationIconView.setVisibility(View.VISIBLE);
-        }
-
-        if(userProfile.getBlog() != null){
-            websiteTextView.setText(userProfile.getBlog());
-            websiteTextView.setVisibility(View.VISIBLE);
-            websiteIconView.setVisibility(View.VISIBLE);
-        }
-
-        if(userProfile.getEmail() != null){
-            emailTextView.setText(userProfile.getEmail());
-            emailTextView.setVisibility(View.VISIBLE);
-            emailIconView.setVisibility(View.VISIBLE);
-        }
-
-        if(userProfile.getHireable()){
-            hireableTextView.setText("Hired Me.");
-
-        } else {
-            hireableTextView.setText("Working.");
-        }
-        hireableIconView.setVisibility(View.VISIBLE);
-        hireableTextView.setVisibility(View.VISIBLE);
-
-
-        Picasso.get().load(userProfile.getAvatar_url())
-                .into(profileImageView);
     }
 }

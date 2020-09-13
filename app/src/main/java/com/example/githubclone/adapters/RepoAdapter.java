@@ -39,7 +39,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(repos != null){
+        if (repos != null) {
             return repos.size();
         }
         return 0;
@@ -50,15 +50,28 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
         public Repository repo;
 
         public TextView repoNameTextView;
+        public TextView repoDescriptionTextView;
+        public TextView repoForkCountTextView;
+        public TextView repoStartCountTextView;
+        public TextView repoWatcherCountTextView;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             repoNameTextView = itemView.findViewById(R.id.repo_name_textView);
+            repoDescriptionTextView = itemView.findViewById(R.id.repo_description_textView);
+            repoForkCountTextView = itemView.findViewById(R.id.repo_forks_textView);
+            repoStartCountTextView = itemView.findViewById(R.id.repo_stars_textView);
+            repoWatcherCountTextView = itemView.findViewById(R.id.repo_watchers_textView);
         }
 
-        public void bind(Repository repo){
+        public void bind(Repository repo) {
             this.repo = repo;
             repoNameTextView.setText(repo.getName());
+            repoDescriptionTextView.setText(repo.getDescription());
+            repoForkCountTextView.setText(repo.getForks_count().toString());
+            repoStartCountTextView.setText(repo.getStargazers_count().toString());
+            repoWatcherCountTextView.setText(repo.getWatchers().toString());
         }
 
     }

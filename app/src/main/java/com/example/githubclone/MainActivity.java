@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.githubclone.contants.AppConstant;
+import com.example.githubclone.utils.AppDefaultPreference;
 
 public class MainActivity extends FragmentActivity {
 
@@ -26,36 +27,28 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
-
-        editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-
-
-        if(username != null){
-//            navigateToHome(username);
-        }
-
         usernameEditText = findViewById(R.id.mainActivity_usernameEditText);
         searchButton = findViewById(R.id.mainActivity_searchButton);
+
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+
+        if(AppDefaultPreference.getDefaults(AppConstant.USER_PREF_DATA, MainActivity.this) != null){
+            navigateToHome();
+        }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navigateToHome(usernameEditText.getText().toString());
+                String username = usernameEditText.getText().toString();
+                AppDefaultPreference.setDefaults(AppConstant.USER_PREF_DATA, username, MainActivity.this);
+                navigateToHome();
             }
         });
 
 
     }
 
-    private void navigateToHome(String username) {
-        editor = sharedPreferences.edit();
-        editor.putString(AppConstant.USER_PREF_DATA, username);
-        editor.apply();
-
+    private void navigateToHome() {
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();

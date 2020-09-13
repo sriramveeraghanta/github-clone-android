@@ -19,6 +19,7 @@ import com.example.githubclone.contants.AppConstant;
 import com.example.githubclone.models.Repository;
 import com.example.githubclone.service.GithubService;
 import com.example.githubclone.service.RetrofitClientInstance;
+import com.example.githubclone.utils.AppDefaultPreference;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ import retrofit2.Response;
 public class StartedFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private StarredAdapter starredAdapter;
+//    private StarredAdapter starredAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,14 +41,13 @@ public class StartedFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_repos, container, false);
+        View root = inflater.inflate(R.layout.fragment_started, container, false);
 
         // Lookup the recyclerview in activity layout
         recyclerView = root.findViewById(R.id.starredRepos_recyclerView);
 
-        // fetching user profile saved in the user shared pref....
-        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String username = sharedPreferences.getString(AppConstant.USER_PREF_DATA, "");
+        // shared pref
+        String username = AppDefaultPreference.getDefaults(AppConstant.USER_PREF_DATA, getActivity());
 
         // service
         GithubService githubService = RetrofitClientInstance.getRetrofitInstance().create(GithubService.class);
@@ -69,7 +69,8 @@ public class StartedFragment extends Fragment {
     }
 
     private void generateDataList(List<Repository> repos) {
-        starredAdapter = new StarredAdapter(repos);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        StarredAdapter starredAdapter = new StarredAdapter(repos);
+        recyclerView.setAdapter(starredAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }
