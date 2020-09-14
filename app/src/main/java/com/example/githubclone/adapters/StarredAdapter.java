@@ -50,6 +50,8 @@ public class StarredAdapter extends RecyclerView.Adapter<StarredAdapter.ViewHold
         public Repository repository;
         public TextView starredRepoNameTextView;
         public TextView starredRepoDescriptionTextView;
+
+
         public TextView starredRepoStarTextView;
         public TextView starredRepoForkTextView;
         public TextView starredRepoWatcherTextView;

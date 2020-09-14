@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.githubclone.contants.AppConstant;
 import com.example.githubclone.utils.AppDefaultPreference;
+
+import static com.example.githubclone.R.drawable.ic_octicons_mark_github;
 
 public class MainActivity extends FragmentActivity {
 
@@ -21,6 +24,7 @@ public class MainActivity extends FragmentActivity {
     private Button searchButton;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private ImageView githubImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,9 @@ public class MainActivity extends FragmentActivity {
 
         usernameEditText = findViewById(R.id.mainActivity_usernameEditText);
         searchButton = findViewById(R.id.mainActivity_searchButton);
+        githubImageView = findViewById(R.id.github_logo_imageView);
+
+        githubImageView.setImageResource(ic_octicons_mark_github);
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
 

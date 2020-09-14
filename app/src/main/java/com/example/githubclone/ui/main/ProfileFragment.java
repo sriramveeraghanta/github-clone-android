@@ -155,14 +155,14 @@ public class ProfileFragment extends Fragment {
                 emailIconView.setVisibility(View.VISIBLE);
             }
 
-            if (userProfile.getHireable()) {
-                hireableTextView.setText("Hired Me.");
-
-            } else {
-                hireableTextView.setText("Working.");
-            }
-            hireableIconView.setVisibility(View.VISIBLE);
-            hireableTextView.setVisibility(View.VISIBLE);
+//            if (userProfile.getHireable()) {
+//                hireableTextView.setText("Hired Me.");
+//
+//            } else {
+//                hireableTextView.setText("Working.");
+//            }
+//            hireableIconView.setVisibility(View.VISIBLE);
+//            hireableTextView.setVisibility(View.VISIBLE);
 
             followersTextView.setText(userProfile.getFollowers().toString());
             followingTextView.setText(userProfile.getFollowing().toString());
