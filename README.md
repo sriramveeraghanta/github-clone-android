@@ -6,15 +6,15 @@ In this application you can find the github users using thier username and find 
 
 ## Screenshots
 
-![OnBoarding Screenshot](./docs/assets/Screenshot_1600052416.png)
+![GithubCloneScreenshot](./docs/assets/ezgif-6-03f70ed3265d.gif)
 
-![OnBoarding Screenshot](./docs/assets/Screenshot_1600052402.png)
+<!-- ![OnBoarding Screenshot](./docs/assets/Screenshot_1600052402.png)
 
 ![OnBoarding Screenshot](./docs/assets/Screenshot_1600052398.png)
 
 ![OnBoarding Screenshot](./docs/assets/Screenshot_1600052186.png)
 
-![OnBoarding Screenshot](./docs/assets/Screenshot_1600052411.png)
+![OnBoarding Screenshot](./docs/assets/Screenshot_1600052411.png) -->
 
 ## External Libraries Used.
 
