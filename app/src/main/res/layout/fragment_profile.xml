@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -55,6 +56,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="start"
                             android:text="Full Name"
+                            android:textColor="@color/colorPrimaryText"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -64,6 +66,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="start"
                             android:text="Username"
+                            android:textColor="@color/colorPrimaryText"
                             android:textSize="18sp"
                             android:textStyle="italic" />
                     </LinearLayout>
@@ -97,39 +100,37 @@
                     android:orientation="horizontal">
 
                     <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_location_icon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:scaleType="center"
+                        android:visibility="gone"
                         app:materialIcon="map_marker"
                         app:materialIconColor="#717171"
-                        app:materialIconSize="16dp"
-                        android:id="@+id/profile_location_icon"
-                        android:visibility="gone"
-                        />
+                        app:materialIconSize="16dp" />
 
                     <TextView
+                        android:id="@+id/profile_location_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        android:visibility="gone"
-                        android:id="@+id/profile_location_textView" />
+                        android:visibility="gone" />
 
                     <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_website_icon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:scaleType="center"
+                        android:visibility="gone"
                         app:materialIcon="link"
                         app:materialIconColor="#717171"
-                        app:materialIconSize="16dp"
-                        android:id="@+id/profile_website_icon"
-                        android:visibility="gone"
-                        />
+                        app:materialIconSize="16dp" />
 
                     <TextView
+                        android:id="@+id/profile_website_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:id="@+id/profile_website_textView" />
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -142,43 +143,122 @@
                     android:orientation="horizontal">
 
                     <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:scaleType="center"
-                        app:materialIcon="email"
                         android:id="@+id/profile_email_icon"
-                        app:materialIconColor="#717171"
-                        app:materialIconSize="16dp"
-                        android:visibility="gone"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:visibility="gone"
-                        android:id="@+id/profile_email_textView" />
-
-                    <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:scaleType="center"
-                        app:materialIcon="gesture"
-                        app:materialIconColor="#717171"
-                        android:id="@+id/profile_hireable_icon"
                         android:visibility="gone"
+                        app:materialIcon="email"
+                        app:materialIconColor="#717171"
                         app:materialIconSize="16dp" />
 
                     <TextView
+                        android:id="@+id/profile_email_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:visibility="gone" />
+
+                    <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_hireable_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:scaleType="center"
                         android:visibility="gone"
-                        android:id="@+id/profile_hireable_textView" />
+                        app:materialIcon="gesture"
+                        app:materialIconColor="#717171"
+                        app:materialIconSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/profile_hireable_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </LinearLayout>
 
 
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:padding="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_following_count_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="60sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Following"
+                        android:textAlignment="center" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/profile_followers_count_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="60sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Followers"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/switch_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="12dp"
+            android:text="Switch Profile" />
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

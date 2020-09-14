@@ -15,6 +15,8 @@ public class Profile {
     private String following_url;
     private String gists_url;
     private Boolean hireable;
+    private Integer followers;
+    private Integer following;
 
     public String getName() {
         return name;
@@ -126,5 +128,21 @@ public class Profile {
 
     public void setHireable(Boolean hireable) {
         this.hireable = hireable;
+    }
+
+    public Integer getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Integer followers) {
+        this.followers = followers;
+    }
+
+    public Integer getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Integer following) {
+        this.following = following;
     }
 }

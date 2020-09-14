@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         // tab adapter
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         sectionsPagerAdapter.addFragment(new RepositoryFragment(), "Repositories");
-        sectionsPagerAdapter.addFragment(new GistFragment(), "Gists");
+//        sectionsPagerAdapter.addFragment(new GistFragment(), "Gists");
         sectionsPagerAdapter.addFragment(new StartedFragment(), "Started");
         sectionsPagerAdapter.addFragment(new ProfileFragment(), "Profile");
 

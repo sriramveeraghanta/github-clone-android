@@ -1,6 +1,7 @@
 package com.example.githubclone.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.githubclone.R;
 import com.example.githubclone.models.Gist;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class GistAdapter extends RecyclerView.Adapter<GistAdapter.ViewHolder> {
@@ -64,6 +66,14 @@ public class GistAdapter extends RecyclerView.Adapter<GistAdapter.ViewHolder> {
 
         public void bind(Gist userGist){
             this.userGist = userGist;
+
+            Iterator<String> iter =  userGist.getFiles().keys();
+            while(iter.hasNext()){
+                String key = iter.next();
+                Log.v("GIST FILES", key);
+            }
+
+
             gistCommentCountTextView.setText(userGist.getComments().toString());
             descriptionTextView.setText(userGist.getDescription() + " - "+userGist.getId());
         }

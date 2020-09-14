@@ -2,13 +2,19 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginLeft="12dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginRight="12dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_margin="12dp">
 
         <TextView
             android:id="@+id/starredRepo_name_textView"
@@ -16,6 +22,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:textColor="@color/colorPrimaryText"
             />
         <TextView
             android:id="@+id/starredRepo_description_textView"
@@ -58,7 +65,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
-                android:visibility="gone"
                 android:id="@+id/starredRepo_stars_textView" />
 
             <net.steamcrafted.materialiconlib.MaterialIconView xmlns:app="http://schemas.android.com/apk/res-auto"

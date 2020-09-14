@@ -1,6 +1,7 @@
 package com.example.githubclone.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,7 @@ public class StarredAdapter extends RecyclerView.Adapter<StarredAdapter.ViewHold
         }
         public void bind(Repository repo){
             this.repository = repo;
+            Log.v("STARS", repo.getStargazers_count().toString());
             starredRepoNameTextView.setText(repo.getName());
             starredRepoDescriptionTextView.setText(repo.getDescription());
             starredRepoStarTextView.setText(repo.getStargazers_count().toString());
